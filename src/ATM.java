@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
-
+impo
 public class ATM {
     
     private Scanner in;
@@ -28,10 +28,19 @@ public class ATM {
 		}
     }
     
+
     /*
      * Application execution begins here.
      */
     
+    public void startup() {
+    	System.out.println("Welcome to the AIT ATM");
+    	
+    	System.out.print("Account No.: ");
+    	long accountNo = in.nextLong();
+    	
+    	System.out.print("PIN:		: ");
+    }
     public static void main(String[] args) {
         ATM atm = new ATM();
     }
