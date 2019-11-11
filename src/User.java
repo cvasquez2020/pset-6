@@ -3,6 +3,10 @@ public class User {
     private String firstName;
     private String lastName;
     
+    Public User(String first, String lastName) {
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    }
     ////////////////////////////////////////////////////////////////////////////
     //                                                                        //
     // Refer to the Simple ATM tutorial to fill in the details of this class. //
