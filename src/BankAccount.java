@@ -1,3 +1,4 @@
+import java.text.NumberFormat;
 public class BankAccount {
         
     private int pin;
@@ -19,9 +20,11 @@ public class BankAccount {
     public long getAccountNo() {
     	return accountNo;
     }
-    
-    public double getBalance() {
-    	return balance;
+
+    public String getBalance() {
+    	NumberFormat currency = NumberFormat.getCurrencyInstance();
+    	  
+    	return currency.format(balance);
     }
     
     public User getAccountHolder() {
