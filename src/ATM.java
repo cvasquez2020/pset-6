@@ -45,7 +45,7 @@ public class ATM {
         
         while (true) {
             System.out.print("Account No.: ");
-            long accountNo = in.nextLong();
+            String accountNo = in.next();
             
             System.out.print("PIN        : ");
             int pin = in.nextInt();
