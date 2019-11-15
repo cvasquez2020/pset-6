@@ -168,7 +168,7 @@ public class Bank {
      * @return the next account number
      */
     
-    private long generateAccountNo() {
+    long generateAccountNo() {
         long accountNo = -1;
         
         for (BankAccount account : accounts) {
