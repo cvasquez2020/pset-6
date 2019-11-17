@@ -6,6 +6,7 @@ public class BankAccount {
     private double balance;
     private User accountHolder;
     
+    
     public BankAccount(int pin, long accountNo, double balance, User accountHolder) {
     	this.pin = pin;
     	this.accountNo = accountNo;

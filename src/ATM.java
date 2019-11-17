@@ -26,7 +26,7 @@ public class ATM {
     public ATM() {
         this.in = new Scanner(System.in);
         
-        activeAccount = new BankAccount(1234, 123456789, 0, new User("Ryan", "Wilson"));
+        //sactiveAccount = new BankAccount(1234, 123456789, 0, new User("Ryan", "Wilson"));
         try {
 			this.bank = new Bank();
 		} catch (IOException e) {
@@ -99,12 +99,13 @@ public class ATM {
     	System.out.print("\nLast name: ");
     	String lastName = in.next();
     	System.out.print("\nPIN: ");
+    	int pin = in.nextInt();
+    	
 
-    	User newUser = new User(firstName, lastName);
-
-    	long newNumber = bank.generateAccountNo();
-
-    	System.out.println("Thank you. Your account number is " + newNumber + ".\nPlease login to access your newly created account.");
+    	long accountNo = bank.generateAccountNo();
+    	activeAccount = new BankAccount(pin, accountNo, 0, new User(firstName, lastName));
+    	bank.createAccount(pin, new User(firstName, lastName));
+    	System.out.println("\nThank you. Your account number is " + activeAccount.getAccountNo() + ".\nPlease login to access your newly created account.");
     	this.startup();
     }
 
