@@ -69,7 +69,7 @@ public class Bank {
     public BankAccount login(long accountNo, int pin) {
         BankAccount bankAccount = getAccount(accountNo);
         
-        if (bankAccount.getPin() == pin) {
+        if (bankAccount != null && bankAccount.getPin() == pin) {
             return bankAccount;
         } else {
             return null;
@@ -169,7 +169,7 @@ public class Bank {
      */
     
     long generateAccountNo() {
-        long accountNo = -1;
+        long accountNo = 100000000;
         
         for (BankAccount account : accounts) {
             if (account.getAccountNo() > accountNo) {

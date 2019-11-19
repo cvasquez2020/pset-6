@@ -18,6 +18,8 @@ public class ATM {
     // You'll need to implement the new features yourself.                    //
     //                                                                        //
     ////////////////////////////////////////////////////////////////////////////
+	public static final String FIRST_NAME_WIDTH = "20";
+	public static final String LAST_NAME_WIDTH = "30";
 
     /**
      * Constructs a new instance of the ATM class.
@@ -75,8 +77,14 @@ public class ATM {
         }
     }
 
-    public boolean isValidLogin(String accountNo, int pin) {
-        return accountNo.equals(Long.toString(activeAccount.getAccountNo())) && pin == activeAccount.getPin();
+    public boolean isValidLogin(long accountNo, int pin) {
+    	activeAccount = bank.login(accountNo, pin);
+    	
+    	if (activeAccount != null) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     public int getSelection() {
@@ -93,19 +101,32 @@ public class ATM {
     }
 
     public void signUp () {
-    	System.out.print("\nFirst name: ");
-    	String firstName = in.next();
-
-    	System.out.print("\nLast name: ");
-    	String lastName = in.next();
-    	System.out.print("\nPIN: ");
-    	int pin = in.nextInt();
+    	String firstName = "";
+    	String lastName = "";
+    	int pin;
     	
+    	do {
+    		System.out.print("\nFirst name: ");
+    		firstName = in.next();
+    	} while ((firstName.length() > 20 || firstName.length() < 1) || firstName.equals(null));
 
+    	
+    	do{
+    		System.out.print("\nLast name: ");
+    		lastName = in.next();
+    	} while ((lastName.length() > 20 || lastName.length() < 1) || lastName.equals(null));
+    	
+    	do {
+    		System.out.print("\nPIN: ");
+    		pin = in.nextInt();
+    	} while (pin < 1000 || pin > 9999);
+    	
     	long accountNo = bank.generateAccountNo();
     	activeAccount = new BankAccount(pin, accountNo, 0, new User(firstName, lastName));
     	bank.createAccount(pin, new User(firstName, lastName));
     	System.out.println("\nThank you. Your account number is " + activeAccount.getAccountNo() + ".\nPlease login to access your newly created account.");
+    	bank.update(activeAccount);
+    	bank.save();
     	this.startup();
     }
 
