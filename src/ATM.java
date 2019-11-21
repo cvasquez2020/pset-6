@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ATM {
+	
 	private Bank bank;
     private Scanner in;
     private BankAccount activeAccount;
@@ -40,9 +41,11 @@ public class ATM {
     /*
      * Application execution begins here.
      */
-
+    public void hello() {
+    	System.out.println("Welcome to the AIT ATM!\n");
+    	startup();
+    }
     public void startup() {
-        System.out.println("Welcome to the AIT ATM!\n");
 
         while (true) {
             System.out.print("Account No.: ");
@@ -98,6 +101,7 @@ public class ATM {
 
     public void showBalance() {
         System.out.println("\nCurrent balance: " + activeAccount.getBalance());
+        System.out.println();
     }
 
     public void signUp () {
@@ -157,13 +161,20 @@ public class ATM {
     	System.out.print("\nEnter account: ");
     	Long otherAccountNo = in.nextLong();
     	if (bank.getAccount(otherAccountNo) != null) {
+    		
     		System.out.print("\nEnter amount: ");
             double transferAmount = in.nextDouble();
+            
+            if (transferAmount == 0) {
+            	System.out.println("Deposit rejected. Amount must be greater than $0.00.");
+            	
+            }
             
             activeAccount.withdraw(transferAmount);
             bank.getAccount(otherAccountNo).deposit(transferAmount);
             
             System.out.println("\nTransfer accepted!"); 
+            System.out.println();
             bank.update(activeAccount);
         	bank.save();
     	}
@@ -181,6 +192,6 @@ public class ATM {
     public static void main(String[] args) {
         ATM atm = new ATM();
 
-        atm.startup();
+        atm.hello();
     }
 }
