@@ -46,13 +46,13 @@ public class ATM {
 
         while (true) {
             System.out.print("Account No.: ");
-            String accountNo = in.next();
-            if (accountNo.charAt(0) == '+' || accountNo.length() == 0) {
+            String accountStr = in.next();
+            if (accountStr.charAt(0) == '+' || accountStr.length() == 0) {
             	signUp();
             }
             System.out.print("PIN        : ");
             int pin = in.nextInt();
-
+            Long accountNo = Long.parseLong(accountStr);
             if (isValidLogin(accountNo, pin)) {
                 System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!\n");
 
@@ -62,13 +62,13 @@ public class ATM {
                         case VIEW: showBalance(); break;
                         case DEPOSIT: deposit(); break;
                         case WITHDRAW: withdraw(); break;
-                        case TRANSFER: System.out.println("Comming soon..."); break;
+                        case TRANSFER: transfer(); break;
                         case LOGOUT: validLogin = false; break;
                         default: System.out.println("\nInvalid selection.\n"); break;
                     }
                 }
             } else {
-                if (accountNo.contentEquals("-1") && pin == -1) {
+                if (Long.toString(accountNo).contentEquals("-1") && pin == -1) {
                     shutdown();
                 } else {
                     System.out.println("\nInvalid account number and/or PIN.\n");
@@ -108,13 +108,14 @@ public class ATM {
     	do {
     		System.out.print("\nFirst name: ");
     		firstName = in.next();
-    	} while ((firstName.length() > 20 || firstName.length() < 1) || firstName.equals(null));
+    		System.out.println(firstName == null);
+    	} while ((firstName.length() > 20 || firstName.length() < 1) || firstName == null);
 
     	
     	do{
     		System.out.print("\nLast name: ");
     		lastName = in.next();
-    	} while ((lastName.length() > 20 || lastName.length() < 1) || lastName.equals(null));
+    	} while ((lastName.length() > 20 || lastName.length() < 1) || lastName == null);
     	
     	do {
     		System.out.print("\nPIN: ");
@@ -136,7 +137,11 @@ public class ATM {
 
         activeAccount.deposit(amount);
         System.out.println();
+        bank.update(activeAccount);
+    	bank.save();
     }
+    
+    
 
     public void withdraw() {
         System.out.print("\nEnter amount: ");
@@ -144,6 +149,24 @@ public class ATM {
 
         activeAccount.withdraw(amount);
         System.out.println();
+        bank.update(activeAccount);
+    	bank.save();
+    }
+    
+    public void transfer() {
+    	System.out.print("\nEnter account: ");
+    	Long otherAccountNo = in.nextLong();
+    	if (bank.getAccount(otherAccountNo) != null) {
+    		System.out.print("\nEnter amount: ");
+            double transferAmount = in.nextDouble();
+            
+            activeAccount.withdraw(transferAmount);
+            bank.getAccount(otherAccountNo).deposit(transferAmount);
+            
+            System.out.println("\nTransfer accepted!"); 
+            bank.update(activeAccount);
+        	bank.save();
+    	}
     }
 
     public void shutdown() {
