@@ -3,7 +3,7 @@ public class BankAccount {
         
     private int pin;
     private long accountNo;
-    private double balance;
+    public double balance;
     private User accountHolder;
     
     
