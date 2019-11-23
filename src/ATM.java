@@ -57,7 +57,7 @@ public class ATM {
             int pin = in.nextInt();
             Long accountNo = Long.parseLong(accountStr);
             if (isValidLogin(accountNo, pin)) {
-                System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!\n");
+                System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!");
 
                 boolean validLogin = true;
                 while (validLogin) {
@@ -143,14 +143,14 @@ public class ATM {
         	System.out.println("\nDeposit rejected. Amount would cause balance to exceed $999,999,999,999.99.");
         } else {
         	activeAccount.deposit(amount);
-            System.out.println();
+
             bank.update(activeAccount);
         	bank.save();
         }
     }
 
     public void withdraw() {
-        System.out.print("\nEnter amount: ");
+        System.out.println("\nEnter amount: ");
         double amount = in.nextDouble();
         
         if (amount <= 0) {
@@ -159,7 +159,6 @@ public class ATM {
         	System.out.println("\nWithdrawal rejected. Insufficient funds.");
         } else {
         	activeAccount.withdraw(amount);
-        	System.out.println();
         	bank.update(activeAccount);
         	bank.save();
         }
