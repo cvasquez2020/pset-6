@@ -71,8 +71,7 @@ public class ATM {
                         default: System.out.println("\nInvalid selection."); break;
                     }
                 }
-            } else {
-            	
+            } else {            	
                 if (Long.toString(accountNo).equals("-1") && pin == -1) {
                     shutdown();
                 } else {
@@ -177,8 +176,7 @@ public class ATM {
             } else if (activeAccount.balance - transferAmount < 0) {
             	System.out.println("\nTransfer rejected. Insufficient funds.");
             } else if ((transferAmount + bank.getAccount(otherAccountNo).balance) > 999999999999.99) {
-            	System.out.println("\nTransfer rejected. Amount would cause destination balance to exceed $999,999,999,999.99.");
-            	
+            	System.out.println("\nTransfer rejected. Amount would cause destination balance to exceed $999,999,999,999.99.");         
             } else {
             	activeAccount.withdraw(transferAmount);
             	bank.getAccount(otherAccountNo).deposit(transferAmount);
