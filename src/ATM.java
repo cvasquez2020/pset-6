@@ -43,6 +43,7 @@ public class ATM {
     	System.out.println("Welcome to the AIT ATM!");
     	startup();
     }
+    
     public void startup() {
 
         while (true) {
