@@ -6,7 +6,6 @@ public class ATM {
     private Scanner in;
     private BankAccount activeAccount;
 
-
     public static final int VIEW = 1;
     public static final int DEPOSIT = 2;
     public static final int WITHDRAW = 3;
@@ -74,7 +73,7 @@ public class ATM {
                 }
             } else {
             	
-                if (Long.toString(accountNo).contentEquals("-1") && pin == -1) {
+                if (Long.toString(accountNo).equals("-1") && pin == -1) {
                     shutdown();
                 } else {
                     System.out.println("\nInvalid account number and/or PIN.");
@@ -145,7 +144,6 @@ public class ATM {
         	System.out.println("\nDeposit rejected. Amount would cause balance to exceed $999,999,999,999.99.");
         } else {
         	activeAccount.deposit(amount);
-
             bank.update(activeAccount);
         	bank.save();
         }
