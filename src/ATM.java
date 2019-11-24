@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ATM {
-	
 	private Bank bank;
     private Scanner in;
     private BankAccount activeAccount;
@@ -50,12 +49,15 @@ public class ATM {
         while (true) {
             System.out.print("\nAccount No.: ");
             String accountStr = in.next();
+            
             if (accountStr.charAt(0) == '+' || accountStr.length() == 0) {
             	signUp();
             }
+            
             System.out.print("PIN        : ");
             int pin = in.nextInt();
             Long accountNo = Long.parseLong(accountStr);
+            
             if (isValidLogin(accountNo, pin)) {
                 System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!");
 
@@ -71,6 +73,7 @@ public class ATM {
                     }
                 }
             } else {
+            	
                 if (Long.toString(accountNo).contentEquals("-1") && pin == -1) {
                     shutdown();
                 } else {
@@ -167,6 +170,7 @@ public class ATM {
     public void transfer() {
     	System.out.print("\nEnter account: ");
     	Long otherAccountNo = in.nextLong();
+    	
     	if (bank.getAccount(otherAccountNo) != null) {
     		System.out.print("\nEnter amount: ");
             double transferAmount = in.nextDouble();
