@@ -44,6 +44,11 @@ public class ATM {
     	startup();
     }
     
+    public void commit() {
+    	bank.update(activeAccount);
+    	bank.save();
+    }
+    
     public void startup() {
 
         while (true) {
@@ -124,8 +129,7 @@ public class ATM {
     	activeAccount = new BankAccount(pin, accountNo, 0, new User(firstName, lastName));
     	bank.createAccount(pin, new User(firstName, lastName));
     	System.out.println("\nThank you. Your account number is " + activeAccount.getAccountNo() + ".\nPlease login to access your newly created account.");
-    	bank.update(activeAccount);
-    	bank.save();
+    	commit();
     	this.startup();
     }
 
@@ -139,8 +143,7 @@ public class ATM {
         	System.out.println("\nDeposit rejected. Amount would cause balance to exceed $999,999,999,999.99.");
         } else {
         	activeAccount.deposit(amount);
-            bank.update(activeAccount);
-        	bank.save();
+            commit();
         }
     }
 
@@ -154,8 +157,7 @@ public class ATM {
         	System.out.println("\nWithdrawal rejected. Insufficient funds.");
         } else {
         	activeAccount.withdraw(amount);
-        	bank.update(activeAccount);
-        	bank.save();
+        	commit();
         }
     }
     
@@ -177,8 +179,7 @@ public class ATM {
             	activeAccount.withdraw(transferAmount);
             	bank.getAccount(otherAccountNo).deposit(transferAmount);
             	System.out.println("\nTransfer accepted!"); 
-                bank.update(activeAccount);
-            	bank.save();
+                commit();
             }
     	} else {
     		System.out.println("\nTransfer rejected. Destination account not found.");
