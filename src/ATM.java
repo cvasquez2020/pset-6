@@ -50,7 +50,7 @@ public class ATM {
             System.out.print("\nAccount No.: ");
             String accountStr = in.next();
             
-            if (accountStr.charAt(0) == '+' || accountStr.length() == 0) {
+            if (accountStr.trim().equals("+")) {
             	signUp();
             }
             
@@ -116,7 +116,6 @@ public class ATM {
     		firstName = in.next();
     	} while ((firstName.length() > 20 || firstName.length() < 1) || firstName == null);
 
-    	
     	do{
     		System.out.print("\nLast name: ");
     		lastName = in.next();
