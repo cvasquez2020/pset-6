@@ -47,15 +47,15 @@ public class ATM {
 
         while (true) {
             System.out.print("\nAccount No.: ");
-            String accountStr = in.next();
+            String accountString = in.next();
             
-            if (accountStr.trim().equals("+")) {
+            if (accountString.trim().equals("+")) {
             	signUp();
             }
             
             System.out.print("PIN        : ");
             int pin = in.nextInt();
-            Long accountNo = Long.parseLong(accountStr);
+            Long accountNo = Long.parseLong(accountString);
             
             if (isValidLogin(accountNo, pin)) {
                 System.out.println("\nHello, again, " + activeAccount.getAccountHolder().getFirstName() + "!");
